@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.Product" >
+    <constructor >
+      <idArg column="product_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="productname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="headimage" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="baseprise" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="saleprice" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="amount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="commend" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="promotion" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="disabled" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="saletime" jdbcType="DATE" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zx.model.Product" >
+    <constructor >
+      <idArg column="product_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="productname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="headimage" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="baseprise" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="saleprice" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="amount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="commend" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="promotion" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="disabled" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="saletime" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="productinfo" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, type_id, productname, headimage, baseprise, saleprice, amount, commend, 
+    promotion, disabled, saletime
+  </sql>
+  <sql id="Blob_Column_List" >
+    productinfo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zx.model.Product" >
+    insert into product (product_id, type_id, productname, 
+      headimage, baseprise, saleprice, 
+      amount, commend, promotion, 
+      disabled, saletime, productinfo
+      )
+    values (#{productId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{productname,jdbcType=VARCHAR}, 
+      #{headimage,jdbcType=VARCHAR}, #{baseprise,jdbcType=DECIMAL}, #{saleprice,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=INTEGER}, #{commend,jdbcType=TINYINT}, #{promotion,jdbcType=TINYINT}, 
+      #{disabled,jdbcType=TINYINT}, #{saletime,jdbcType=DATE}, #{productinfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.model.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="productname != null" >
+        productname,
+      </if>
+      <if test="headimage != null" >
+        headimage,
+      </if>
+      <if test="baseprise != null" >
+        baseprise,
+      </if>
+      <if test="saleprice != null" >
+        saleprice,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="commend != null" >
+        commend,
+      </if>
+      <if test="promotion != null" >
+        promotion,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="saletime != null" >
+        saletime,
+      </if>
+      <if test="productinfo != null" >
+        productinfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="productname != null" >
+        #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimage != null" >
+        #{headimage,jdbcType=VARCHAR},
+      </if>
+      <if test="baseprise != null" >
+        #{baseprise,jdbcType=DECIMAL},
+      </if>
+      <if test="saleprice != null" >
+        #{saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="commend != null" >
+        #{commend,jdbcType=TINYINT},
+      </if>
+      <if test="promotion != null" >
+        #{promotion,jdbcType=TINYINT},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=TINYINT},
+      </if>
+      <if test="saletime != null" >
+        #{saletime,jdbcType=DATE},
+      </if>
+      <if test="productinfo != null" >
+        #{productinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Product" >
+    update product
+    <set >
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="productname != null" >
+        productname = #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimage != null" >
+        headimage = #{headimage,jdbcType=VARCHAR},
+      </if>
+      <if test="baseprise != null" >
+        baseprise = #{baseprise,jdbcType=DECIMAL},
+      </if>
+      <if test="saleprice != null" >
+        saleprice = #{saleprice,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="commend != null" >
+        commend = #{commend,jdbcType=TINYINT},
+      </if>
+      <if test="promotion != null" >
+        promotion = #{promotion,jdbcType=TINYINT},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=TINYINT},
+      </if>
+      <if test="saletime != null" >
+        saletime = #{saletime,jdbcType=DATE},
+      </if>
+      <if test="productinfo != null" >
+        productinfo = #{productinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zx.model.Product" >
+    update product
+    set type_id = #{typeId,jdbcType=INTEGER},
+      productname = #{productname,jdbcType=VARCHAR},
+      headimage = #{headimage,jdbcType=VARCHAR},
+      baseprise = #{baseprise,jdbcType=DECIMAL},
+      saleprice = #{saleprice,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=INTEGER},
+      commend = #{commend,jdbcType=TINYINT},
+      promotion = #{promotion,jdbcType=TINYINT},
+      disabled = #{disabled,jdbcType=TINYINT},
+      saletime = #{saletime,jdbcType=DATE},
+      productinfo = #{productinfo,jdbcType=LONGVARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.Product" >
+    update product
+    set type_id = #{typeId,jdbcType=INTEGER},
+      productname = #{productname,jdbcType=VARCHAR},
+      headimage = #{headimage,jdbcType=VARCHAR},
+      baseprise = #{baseprise,jdbcType=DECIMAL},
+      saleprice = #{saleprice,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=INTEGER},
+      commend = #{commend,jdbcType=TINYINT},
+      promotion = #{promotion,jdbcType=TINYINT},
+      disabled = #{disabled,jdbcType=TINYINT},
+      saletime = #{saletime,jdbcType=DATE}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>

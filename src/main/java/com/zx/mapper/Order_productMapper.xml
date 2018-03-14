@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.dao.Order_productMapper" >
+  <resultMap id="BaseResultMap" type="com.zx.model.Order_product" >
+    <constructor >
+      <idArg column="order_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <idArg column="product_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="disabled" jdbcType="TINYINT" javaType="java.lang.Byte" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, product_id, num, disabled
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zx.model.Order_productKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_product
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.zx.model.Order_productKey" >
+    delete from order_product
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zx.model.Order_product" >
+    insert into order_product (order_id, product_id, num, 
+      disabled)
+    values (#{orderId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{disabled,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zx.model.Order_product" >
+    insert into order_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Order_product" >
+    update order_product
+    <set >
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=TINYINT},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zx.model.Order_product" >
+    update order_product
+    set num = #{num,jdbcType=INTEGER},
+      disabled = #{disabled,jdbcType=TINYINT}
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>
